@@ -3,13 +3,12 @@ mon.setTextScale(1)
 mon.setTextColor(colors.white)
 local button={}
 mon.setBackgroundColor(colors.black)
-function monclear()
-mon.clear()
-end
+local url = "http://youradress.something"
+
 function info()
-local newsfeed = http.get("http://extreme-games.6f.sk/feed.txt")
-local projects = http.get("http://extreme-games.6f.sk/projects.txt")
-local time = http.get("http://extreme-games.6f.sk/time.php")
+local newsfeed = http.get(url.."/feed.txt")
+local projects = http.get(url.."/projects.txt")
+local time = http.get(url.."/time.php")
 mon.setCursorPos(46,1)
 mon.write(time.readAll())
 mon.setCursorPos(1,3)
@@ -34,15 +33,10 @@ function setTable(name, func, xmin, xmax, ymin, ymax)
    button[name]["xmax"] = xmax
    button[name]["ymax"] = ymax
 end
+
 function refresh()
 flash("Refresh")
 print("Refreshed...")
-end
-
-
-function funcName()
-   flash("ButtonText")
-   print("You clicked buttonText")
 end
         
 function fillTable()
