@@ -1,9 +1,16 @@
-local mon = peripheral.wrap("left")
+--load config
+local configs = fs.open(config,"r")
+local confdata = configs.readAll()
+configs.close()
+
+local mon = confdata[1]
+--local mon = peripheral.wrap("left")
 mon.setTextScale(1)
 mon.setTextColor(colors.white)
 local button={}
 mon.setBackgroundColor(colors.black)
-local url = "http://youradress.something"
+local url = confdata[2]
+--local url = "http://youradress.something"
 
 function info()
 local newsfeed = http.get(url.."/feed.txt")
