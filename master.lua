@@ -4,7 +4,7 @@ local confdata = configs.readAll()
 local loadedconf = textutils.unserialize(confdata)
 configs.close()
 
-local mon = loadedconf[1]
+local mon = peripheral.wrap(loadedconf[1])
 --local mon = peripheral.wrap("left")
 mon.setTextScale(1)
 mon.setTextColor(colors.white)

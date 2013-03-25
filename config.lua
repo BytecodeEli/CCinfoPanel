@@ -1,2 +1,1 @@
-"SIDE"
-"http://youradress.something"
+{[1]="SIDE",[2]="http://adress.something",}
