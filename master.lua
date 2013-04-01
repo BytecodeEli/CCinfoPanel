@@ -40,6 +40,16 @@ function setTable(name, func, xmin, xmax, ymin, ymax)
    button[name]["ymax"] = ymax
 end
 
+function delTable(name) //sets all data to nil to which LUA reacts as: "No data? Then you no exist!"
+   button[name]["func"] = nil
+   button[name]["active"] = nil
+   button[name]["xmin"] = nil
+   button[name]["ymin"] = nil
+   button[name]["xmax"] = nil
+   button[name]["ymax"] = nil
+   button[name] = nil
+end
+
 function refresh()
 flash("Refresh")
 print("Refreshed...")
