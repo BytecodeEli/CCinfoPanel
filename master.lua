@@ -1,22 +1,20 @@
 --load config
 local configs = fs.open(config,"r")
 local confdata = configs.readAll()
-local loadedconf = textutils.unserialize(confdata)
+loadedconf = textutils.unserialize(confdata) //global too :) (read below)
 configs.close()
 
-local mon = peripheral.wrap(loadedconf[1])
---local mon = peripheral.wrap("left")
+mon = peripheral.wrap(loadedconf[1]) //made the variable to be global... hope this will help somehow
 mon.setTextScale(1)
 mon.setTextColor(colors.white)
-local button={}
+button={} //IDK why global button... maybe 4 fun? :D
 mon.setBackgroundColor(colors.black)
-local url = loadedconf[2]
---local url = "http://youradress.something"
+url = loadedconf[2] //also global
 
 function info()
 local newsfeed = http.get(url.."/feed.txt")
 local projects = http.get(url.."/projects.txt")
-local time = http.get(url.."/time.php")
+time = http.get(url.."/time.php") //mmm... global time
 mon.setCursorPos(46,1)
 mon.write(time.readAll())
 mon.setCursorPos(1,3)
@@ -47,11 +45,10 @@ flash("Refresh")
 print("Refreshed...")
 end
         
-function fillTable()
-   setTable("Refresh", refresh, 35, 50, 17, 20)
+function fillTable() //buttons will be defined from main.lua
 end     
 
-function fill(text, color, bData)
+function fill(text, color, bData) //add textColor? maybe?
    mon.setBackgroundColor(color)
    local yspot = math.floor((bData["ymin"] + bData["ymax"]) /2)
    local xspot = math.floor((bData["xmax"] - bData["xmin"] - string.len(text)) /2) +1
@@ -77,7 +74,7 @@ end
 function screen()
    local currColor
    for name,data in pairs(button) do
-      local on = data["active"]
+      local on = data["active"] //add custom colors? sure!
       if on == true then currColor = colors.lime else currColor = colors.red end
       fill(name, currColor, data)
    end
@@ -101,8 +98,6 @@ function checkxy(x, y)
       if y>=data["ymin"] and  y <= data["ymax"] then
          if x>=data["xmin"] and x<= data["xmax"] then
             data["func"]()
-            --data["active"] = not data["active"]
-            --print(name)
          end
       end
    end
