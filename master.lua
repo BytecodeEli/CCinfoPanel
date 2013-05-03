@@ -1,25 +1,27 @@
 --load config
-local configs = fs.open(config,"r")
+local configs = fs.open("config","r")
 local confdata = configs.readAll()
-loadedconf = textutils.unserialize(confdata) //global too :) (read below)
+loadedconf = textutils.unserialize(confdata) --global too :) (read below)
 configs.close()
 
-local versionLoad = fs.open(version,"r")
+local versionLoad = fs.open("version","r")
 local versionData = versionLoad.readAll()
 versionRead = textutils.unserialize(versionData)
 versionLoad.close()
 
-mon = peripheral.wrap(loadedconf[1]) //made the variable to be global... hope this will help somehow
+monside = loadedconf[1]
+mon = peripheral.wrap(monside) --made the variable to be global... hope this will help somehow
 mon.setTextScale(1)
 mon.setTextColor(colors.white)
-button={} //IDK why global button... maybe 4 fun? :D
+button={} --IDK why global button... maybe 4 fun? :D
 mon.setBackgroundColor(colors.black)
-url = loadedconf[2] //also global
+urlLoad = loadedconf[2]
+url = urlLoad --also global
 
 function info()
  local newsfeed = http.get(url.."/feed.txt")
  local projects = http.get(url.."/projects.txt")
- time = http.get(url.."/time.php") //mmm... global time
+ time = http.get(url.."/time.php") --mmm... global time
  mon.setCursorPos(46,1)
  mon.write(time.readAll())
  mon.setCursorPos(1,4)
@@ -99,7 +101,7 @@ function setTable(name, func, xmin, xmax, ymin, ymax)
    button[name]["ymax"] = ymax
 end
 
-function delTable(name) //sets all data to nil to which LUA reacts as: "No data? Then you no exist!"
+function delTable(name) --sets all data to nil to which LUA reacts as: "No data? Then you no exist!"
    button[name]["func"] = nil
    button[name]["active"] = nil
    button[name]["xmin"] = nil
@@ -114,10 +116,10 @@ flash("Refresh")
 print("Refreshed...")
 end
         
-function fillTable() //buttons will be defined from main.lua
+function fillTable() --buttons will be defined from main.lua
 end     
 
-function fill(text, color, bData) //add textColor? maybe?
+function fill(text, color, bData) --add textColor? maybe?
    mon.setBackgroundColor(color)
    local yspot = math.floor((bData["ymin"] + bData["ymax"]) /2)
    local xspot = math.floor((bData["xmax"] - bData["xmin"] - string.len(text)) /2) +1
@@ -143,7 +145,7 @@ end
 function screen()
    local currColor
    for name,data in pairs(button) do
-      local on = data["active"] //add custom colors? sure!
+      local on = data["active"] --add custom colors? sure!
       if on == true then currColor = colors.lime else currColor = colors.red end
       fill(name, currColor, data)
    end
@@ -171,12 +173,13 @@ function checkxy(x, y)
       end
    end
 end
-     
-function heading(text)
+
+headtext = loadedconf[3]     
+function heading(headtext)
    w, h = mon.getSize()
    mon.setCursorPos((w-string.len(text))/2+1, 1)
    mon.setTextColor(colors.orange)
-   mon.write(text)
+   mon.write(headtext)
    mon.setTextColor(colors.white)
 end
      
