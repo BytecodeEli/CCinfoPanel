@@ -9,19 +9,19 @@ local versionData = versionLoad.readAll()
 versionRead = textutils.unserialize(versionData)
 versionLoad.close()
 
-monside = loadedconf[1]
+local monside = loadedconf[1]
 mon = peripheral.wrap(monside) --made the variable to be global... hope this will help somehow
 mon.setTextScale(1)
 mon.setTextColor(colors.white)
 button={} --IDK why global button... maybe 4 fun? :D
 mon.setBackgroundColor(colors.black)
-urlLoad = loadedconf[2]
+local urlLoad = loadedconf[2]
 url = urlLoad --also global
 
 function info()
- local newsfeed = http.get(url.."/feed.txt")
- local projects = http.get(url.."/projects.txt")
- time = http.get(url.."/time.php") --mmm... global time
+ newsfeed = http.get(url.."/feed.txt")
+ projects = http.get(url.."/projects.txt")
+ time = http.get(url.."/time.php")
  mon.setCursorPos(46,1)
  mon.write(time.readAll())
  mon.setCursorPos(1,4)
@@ -49,9 +49,9 @@ function infoCustom()
 end
 
 function infoAbout()
- local Version = versionRead[1].."."..versionRead[2].."."..versionRead[3]
- local Actual = http.get("http://extreme-games.6f.sk/version.txt")
- local ReadActual = Actual.readAll()
+ Version = versionRead[1].."."..versionRead[2].."."..versionRead[3]
+ Actual = http.get("http://extreme-games.6f.sk/version.txt")
+ ReadActual = Actual.readAll()
  time = http.get(url.."/time.php")
  mon.setCursorPos(46,1)
  mon.write(time.readAll())
@@ -61,12 +61,12 @@ function infoAbout()
  print("Actual version:"..ReadActual)
  term.restore()
  print("Version check...")
- local Actual1 = http.get("http://extreme-games.6f.sk/version1.txt")
- local Actual1R = Actual1.readAll()
- local Actual2 = http.get("http://extreme-games.6f.sk/version2.txt")
- local Actual2R = Actual1.readAll()
- local Actual3 = http.get("http://extreme-games.6f.sk/version3.txt")
- local Actual3R = Actual1.readAll()
+ Actual1 = http.get("http://extreme-games.6f.sk/version1.txt")
+ Actual1R = Actual1.readAll()
+ Actual2 = http.get("http://extreme-games.6f.sk/version2.txt")
+ Actual2R = Actual1.readAll()
+ Actual3 = http.get("http://extreme-games.6f.sk/version3.txt")
+ Actual3R = Actual1.readAll()
  if Actual1R > versionRead[1] then
   term.redirect(mon)
   print("")
@@ -114,10 +114,7 @@ end
 function refresh()
 flash("Refresh")
 print("Refreshed...")
-end
-        
-function fillTable() --buttons will be defined from main.lua
-end     
+end   
 
 function fill(text, color, bData) --add textColor? maybe?
    mon.setBackgroundColor(color)
