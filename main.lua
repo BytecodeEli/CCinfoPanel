@@ -1,4 +1,4 @@
-screeNo = 1
+screenNo = 1
 
 function input()
   local e,side,x,y = os.pullEvent("monitor_touch")
