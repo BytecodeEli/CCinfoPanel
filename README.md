@@ -1,6 +1,8 @@
 CCinfoPanel
 ===========
 
+UPDATE: NOW WITH MULTIPLE SCREENS!
+
 Simple CC Info Panel written in LUA :)
 
 Setup
@@ -12,7 +14,7 @@ You need:
  3. Brain
 
 - Upload webfiles somewhere to your server(web).
-- You need to edit config.lua before you run main.lua... and do NOT forget to delete the .lua extensions.
-- Make an advanced computer with 4x3 monitor connected to it(4 horizontally, 3 vertically).
-- Copy/Upload master, main and config to computer's folder(did you checked the computer's ID? :D)
-- Run main at startup and you are good to go!
+- Edit config.lua(do not forget to delete .lua on all files)
+- Make an advanced computer with 5x3 monitor DIRECTLY connected to it(5 horizontally, 3 vertically).
+- Copy everything but webfiles to computer's folder
+- Run main at startup

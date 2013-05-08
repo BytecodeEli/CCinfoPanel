@@ -1,3 +1,26 @@
+screeNo = 1
+
+function input()
+  local e,side,x,y = os.pullEvent("monitor_touch")
+  result = master.checkxy(x,y)
+  
+  print("result: "..result)
+  
+  if result == "L" then
+    master.flash("L")
+    if screenNo > 1 then
+      screenNo = screenNo - 1
+    end
+  end
+  
+  if result == "R" then
+    master.flash("R")
+    if screenNo < 3 then
+      screenNo = screenNo + 1
+    end
+  end
+end
+
 if os.loadAPI("master") == true then
   print("API loaded!")
 elseif not (os.loadAPI("master")) and (fs.exists("master")) then
@@ -6,51 +29,25 @@ elseif not (os.loadAPI("master")) and not (fs.exists("master")) then
   print("API not found!")
 end
 
-screenNo = 1
-
-function arrowleft()
-master.flash("L")
- if screenNo > 1 then
-  screenNo = screenNo - 1
- end
-end
-
-function arrowright()
-master.flash("R")
- if screenNo < 3 then
-  screenNo = screenNo + 1
- end
-end
-
-function arrows()
- master.setTable("L", main.arrowleft, 1, 3, 1, 3)
- master.setTable("R", main.arrowright, 4, 7, 1, 3)
-end
-
-master.heading(loadedconf[3])
-arrows()
-master.setTable("Refresh", refresh, 35, 50, 17, 20)
+master.heading()
 while true do
- if screenNo == 1 then
+ if screeno == 1 then
   master.screen()
-  master.heading(loadedconf[3])
+  master.heading()
   master.info()
-  local e,side,x,y = os.pullEvent("monitor_touch")
-  master.checkxy(x,y)
+  input()
   sleep(.1)
- elseif screenNo == 2 then
+ elseif screeno == 2 then
   master.screen()
-  master.heading(loadedconf[3])
+  master.heading()
   master.infoCustom()
-  local e,side,x,y = os.pullEvent("monitor_touch")
-  master.checkxy(x,y)
+  input()
   sleep(.1)
- elseif screenNo == 3 then
+ elseif screeno == 3 then
   master.screen()
-  master.heading(loadedconf[3])
+  master.heading()
   master.infoAbout()
-  local e,side,x,y = os.pullEvent("monitor_touch")
-  master.checkxy(x,y)
+  input()
   sleep(.1)
  end
 end

@@ -1,7 +1,7 @@
 --load config
 local configs = fs.open("config","r")
 local confdata = configs.readAll()
-loadedconf = textutils.unserialize(confdata) --global too :) (read below)
+local loadedconf = textutils.unserialize(confdata)
 configs.close()
 
 local versionLoad = fs.open("version","r")
@@ -13,10 +13,10 @@ local monside = loadedconf[1]
 mon = peripheral.wrap(monside) --made the variable to be global... hope this will help somehow
 mon.setTextScale(1)
 mon.setTextColor(colors.white)
-button={} --IDK why global button... maybe 4 fun? :D
+local button={}
 mon.setBackgroundColor(colors.black)
 local urlLoad = loadedconf[2]
-url = urlLoad --also global
+url = urlLoad
 
 function info()
  newsfeed = http.get(url.."/feed.txt")
@@ -93,6 +93,7 @@ end
           
 function setTable(name, func, xmin, xmax, ymin, ymax)
    button[name] = {}
+   button[name]["name"] = name
    button[name]["func"] = func
    button[name]["active"] = false
    button[name]["xmin"] = xmin
@@ -101,7 +102,8 @@ function setTable(name, func, xmin, xmax, ymin, ymax)
    button[name]["ymax"] = ymax
 end
 
-function delTable(name) --sets all data to nil to which LUA reacts as: "No data? Then you no exist!"
+function delTable(name)
+   button[name]["name"] = nil
    button[name]["func"] = nil
    button[name]["active"] = nil
    button[name]["xmin"] = nil
@@ -114,7 +116,11 @@ end
 function refresh()
 flash("Refresh")
 print("Refreshed...")
-end   
+end 
+
+function bounce()
+  print("Bounced...(function call is handled by another script)")
+end  
 
 function fill(text, color, bData) --add textColor? maybe?
    mon.setBackgroundColor(color)
@@ -166,13 +172,14 @@ function checkxy(x, y)
       if y>=data["ymin"] and  y <= data["ymax"] then
          if x>=data["xmin"] and x<= data["xmax"] then
             data["func"]()
+            return data["name"]
          end
       end
    end
 end
 
 headtext = loadedconf[3]     
-function heading(headtext)
+function heading()
    w, h = mon.getSize()
    mon.setCursorPos((w-string.len(text))/2+1, 1)
    mon.setTextColor(colors.orange)
@@ -184,3 +191,8 @@ function label(w, h, text)
    mon.setCursorPos(w, h)
    mon.write(text)
 end
+
+setTable("L", bounce, 1, 1, 1, 1)
+setTable("R", bounce, 2, 2, 1, 1)
+setTable("Refresh", refresh, 35, 50, 17, 20)
+
