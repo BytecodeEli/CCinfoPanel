@@ -60,29 +60,29 @@ function infoAbout()
  print("Installed version:"..Version)
  print("Actual version:"..ReadActual)
  term.restore()
- print("Version check...")
- Actual1 = http.get("http://extreme-games.6f.sk/version1.txt")
- Actual1R = Actual1.readAll()
- Actual2 = http.get("http://extreme-games.6f.sk/version2.txt")
- Actual2R = Actual1.readAll()
- Actual3 = http.get("http://extreme-games.6f.sk/version3.txt")
- Actual3R = Actual1.readAll()
- if Actual1R > versionRead[1] then
-  term.redirect(mon)
-  print("")
-  print("Update available!")
-  term.restore()
- elseif Actual2R > versionRead[2] then
-  term.redirect(mon)
-  print("")
-  print("Update available!")
-  term.restore()
- elseif Actual3R > versionRead[3] then
-  term.redirect(mon)
-  print("")
-  print("Update available!")
-  term.restore()
- end
+ --print("Version check...")
+ --Actual1 = http.get("http://extreme-games.6f.sk/version1.txt")
+ --Actual1R = Actual1.readAll()
+ --Actual2 = http.get("http://extreme-games.6f.sk/version2.txt")
+ --Actual2R = Actual1.readAll()
+ --Actual3 = http.get("http://extreme-games.6f.sk/version3.txt")
+ --Actual3R = Actual1.readAll()
+ --if Actual1R > versionRead[1] then
+ -- term.redirect(mon)
+ -- print("")
+ -- print("Update available!")
+ -- term.restore()
+ --elseif Actual2R > versionRead[2] then
+ -- term.redirect(mon)
+ -- print("")
+ -- print("Update available!")
+ -- term.restore()
+ --elseif Actual3R > versionRead[3] then
+ -- term.redirect(mon)
+ -- print("")
+ -- print("Update available!")
+ -- term.restore()
+ --end
  term.redirect(mon)
  print("")
  print("Credits:")
@@ -146,6 +146,8 @@ function fill(text, color, bData) --add textColor? maybe?
 end
      
 function screen()
+   mon.clear()
+   mon.setCursorPos(1,1)
    local currColor
    for name,data in pairs(button) do
       local on = data["active"] --add custom colors? sure!
@@ -181,7 +183,7 @@ end
 headtext = loadedconf[3]     
 function heading()
    w, h = mon.getSize()
-   mon.setCursorPos((w-string.len(text))/2+1, 1)
+   mon.setCursorPos((w-string.len(headtext))/2+1, 1)
    mon.setTextColor(colors.orange)
    mon.write(headtext)
    mon.setTextColor(colors.white)
