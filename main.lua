@@ -4,7 +4,11 @@ function input()
   local e,side,x,y = os.pullEvent("monitor_touch")
   result = master.checkxy(x,y)
   
+  if not result == nil then
   print("result: "..result)
+  else
+  print("result: nil")
+  end
   
   if result == "L" then
     master.flash("L")
@@ -31,19 +35,19 @@ end
 
 master.heading()
 while true do
- if screeno == 1 then
+ if screenNo == 1 then
   master.screen()
   master.heading()
   master.info()
   input()
   sleep(.1)
- elseif screeno == 2 then
+ elseif screenNo == 2 then
   master.screen()
   master.heading()
   master.infoCustom()
   input()
   sleep(.1)
- elseif screeno == 3 then
+ elseif screenNo == 3 then
   master.screen()
   master.heading()
   master.infoAbout()
