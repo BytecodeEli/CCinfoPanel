@@ -1,3 +1,5 @@
+w, h = term.getSize()
+
 local configs = fs.open("config","r")
 local confdata = configs.readAll()
 local loadedconf = textutils.unserialize(confdata)
@@ -33,13 +35,9 @@ function input()
   result = master.checkxy(x,y)
   
   if not result == nil then
-  term.restore()
   print("result: "..result)
-  term.redirect(mon)
   else
-  term.restore()
   print("result: nil")
-  term.redirect(mon)
   end
   
   if result == "L" then
@@ -65,7 +63,7 @@ function info()
  newsfeed = http.get(url.."/feed.txt")
  projects = http.get(url.."/projects.txt")
  time = http.get(url.."/time.php")
- mon.setCursorPos(46,1)
+ mon.setCursorPos(w-5,1)
  mon.write(time.readAll())
  mon.setCursorPos(1,4)
  feeddata = newsfeed.readAll()
@@ -82,7 +80,7 @@ end
 
 function infoCustom()
  time = http.get(url.."/time.php")
- mon.setCursorPos(46,1)
+ mon.setCursorPos(w-5,1)
  mon.write(time.readAll())
  mon.setCursorPos(1,4)
  infoCText = "SOME TEXT HERE"
@@ -96,7 +94,7 @@ function infoAbout()
  Actual = http.get("http://extreme-games.6f.sk/version.txt")
  ReadActual = Actual.readAll()
  time = http.get(url.."/time.php")
- mon.setCursorPos(46,1)
+ mon.setCursorPos(w-5,1)
  mon.write(time.readAll())
  mon.setCursorPos(1,4)
  term.redirect(mon)
@@ -132,6 +130,7 @@ function infoAbout()
  print("D3add3d - Creator, main dev.; TechniFORGE - Server with awesome community where I can test this in normal use")
  print("This program is Open-Source, check it out at")
  print("http://github.com/D3add3d/CCinfoPanel/")
+ term.restore()
 end
 
 master.setTable("L", 1, 1, 1, 1)
