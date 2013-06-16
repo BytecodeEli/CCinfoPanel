@@ -5,16 +5,12 @@ configs.close()
 
 local monside = loadedconf[1]
 mon = peripheral.wrap(monside)
-mon.setTextScale(1)
-mon.setTextColor(colors.white)
-mon.setBackgroundColor(colors.black)
 
 local button={}
 
-function setTable(name, func, xmin, xmax, ymin, ymax)
+function setTable(name, xmin, xmax, ymin, ymax)
    button[name] = {}
    button[name]["name"] = name
-   button[name]["func"] = func
    button[name]["active"] = false
    button[name]["xmin"] = xmin
    button[name]["ymin"] = ymin
@@ -24,7 +20,6 @@ end
 
 function delTable(name)
    button[name]["name"] = nil
-   button[name]["func"] = nil
    button[name]["active"] = nil
    button[name]["xmin"] = nil
    button[name]["ymin"] = nil
@@ -32,15 +27,6 @@ function delTable(name)
    button[name]["ymax"] = nil
    button[name] = nil
 end
-
-function refresh()
-flash("Refresh")
-print("Refreshed...")
-end 
-
-function bounce()
-  print("Bounced...(function call is handled by application)")
-end  
 
 function fill(text, color, bData)
    mon.setBackgroundColor(color)
@@ -110,5 +96,9 @@ end
 function label(w, h, text)
    mon.setCursorPos(w, h)
    mon.write(text)
+end
+
+function returnstatus(name)
+    return button[name]["active"]
 end
 

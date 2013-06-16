@@ -57,6 +57,10 @@ function input()
   end
 end
 
+function getstatus(name)
+    return master.returnstatus(name)
+end
+
 function info()
  newsfeed = http.get(url.."/feed.txt")
  projects = http.get(url.."/projects.txt")
@@ -130,8 +134,8 @@ function infoAbout()
  print("http://github.com/D3add3d/CCinfoPanel/")
 end
 
-master.setTable("L", bounce, 1, 1, 1, 1)
-master.setTable("R", bounce, 2, 2, 1, 1)
+master.setTable("L", 1, 1, 1, 1)
+master.setTable("R", 2, 2, 1, 1)
 
 master.heading(headtext)
 while true do
