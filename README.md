@@ -2,6 +2,7 @@ CCinfoPanel
 ===========
 
 NOTE:  I will be happy if any1 help me with this :) (you will be credited if you help!)
+
 NOTE2: Check issues page if you want to help ;)
 
 (Simple) CC Info Panel written in LUA :)
