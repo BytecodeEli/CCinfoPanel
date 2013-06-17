@@ -1,14 +1,28 @@
 w, h = term.getSize()
 
-local configs = fs.open("config","r")
-local confdata = configs.readAll()
-local loadedconf = textutils.unserialize(confdata)
-configs.close()
+--files check
+if fs.exists("config") then
+  local configs = fs.open("config","r")
+  local confdata = configs.readAll()
+  local loadedconf = textutils.unserialize(confdata)
+  configs.close()
+else
+  print("Config file missing! Sending terminate event...")
+  os.queueEvent("terminate")
+  os.pullEvent()
+end
 
-local versionLoad = fs.open("version","r")
-local versionData = versionLoad.readAll()
-versionRead = textutils.unserialize(versionData)
-versionLoad.close()
+if fs.exists("version") then
+  local versionLoad = fs.open("version","r")
+  local versionData = versionLoad.readAll()
+  versionRead = textutils.unserialize(versionData)
+  versionLoad.close()
+else
+  print("Version file is missing, will use 0.0.0!")
+  versionRead[1] = 0
+  versionRead[2] = 0
+  versionRead[3] = 0
+end
 
 local monside = loadedconf[1]
 mon = peripheral.wrap(monside)
@@ -127,9 +141,9 @@ function infoAbout()
  term.redirect(mon)
  print("")
  print("Credits:")
- print("D3add3d - Creator, main dev.; TechniFORGE - Server with awesome community where I can test this in normal use")
- print("This program is Open-Source, check it out at")
- print("http://github.com/D3add3d/CCinfoPanel/")
+ print("D3add3d - Creator, main dev.; TechniFORGE - Server with awesome community")
+ print("This program is licensed under CC-BY-NC-SA 3.0 Unported.")
+ print("http://github.com/D3add3d/CCinfoPanel")
  term.restore()
 end
 
