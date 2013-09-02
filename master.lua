@@ -3,8 +3,39 @@ local confdata = configs.readAll()
 local loadedconf = textutils.unserialize(confdata)
 configs.close()
 
-local monside = loadedconf[1]
-mon = peripheral.wrap(monside)
+if table.maxn(loadedconf) == 3 then
+local monside1 = loadedconf[1]
+mon1 = peripheral.wrap(monside1)
+moncount = 1
+elseif table.maxn(loadedconf) == 6 then
+local monside1 = loadedconf[1]
+local monside2 = loadedconf[4]
+mon1 = peripheral.wrap(monside1)
+mon2 = peripheral.wrap(monside2)
+moncount = 2
+elseif table.maxn(loadedconf) == 9 then
+local monside1 = loadedconf[1]
+local monside2 = loadedconf[4]
+local monside3 = loadedconf[7]
+mon1 = peripheral.wrap(monside1)
+mon2 = peripheral.wrap(monside2)
+mon3 = peripheral.wrap(monside3)
+moncount = 3
+elseif table.maxn(loadedconf) == 12 then
+local monside1 = loadedconf[1]
+local monside2 = loadedconf[4]
+local monside3 = loadedconf[7]
+local monside4 = loadedconf[10]
+mon1 = peripheral.wrap(monside1)
+mon2 = peripheral.wrap(monside2)
+mon3 = peripheral.wrap(monside3)
+mon4 = peripheral.wrap(monside4)
+moncount = 4
+end
+
+function monitor(func, param, param2)
+   --todo
+end
 
 local button={}
 
