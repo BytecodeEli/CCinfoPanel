@@ -34,7 +34,74 @@ moncount = 4
 end
 
 function monitor(func, param, param2)
-   --todo
+   if not param2 == nil then
+      if moncount == 1 then
+         combine = "mon1." . func
+         combine(param, param2)
+      elseif moncount == 2 then
+         combine = "mon1." . func
+         combine(param, param2)
+         combine = "mon2." . func
+         combine(param, param2)
+      elseif moncount == 3 then
+         combine = "mon1." . func
+         combine(param, param2)
+         combine = "mon2." . func
+         combine(param, param2)
+         combine = "mon3." . func
+         combine(param, param2)
+      elseif moncount == 4 then
+         combine = "mon1." . func
+         combine(param, param2)
+         combine = "mon2." . func
+         combine(param, param2)
+         combine = "mon3." . func
+         combine(param, param2)
+         combine = "mon4." . func
+         combine(param, param2)
+      end
+   elseif param2 == nil then
+      if moncount == 1 then
+         combine = "mon1." . func
+         combine(param)
+      elseif moncount == 2 then
+         combine = "mon1." . func
+         combine(param)
+         combine = "mon2." . func
+         combine(param)
+      elseif moncount == 3 then
+         combine = "mon1." . func
+         combine(param)
+         combine = "mon2." . func
+         combine(param)
+         combine = "mon3." . func
+         combine(param)
+      elseif moncount == 4 then
+         combine = "mon1." . func
+         combine(param)
+         combine = "mon2." . func
+         combine(param)
+         combine = "mon3." . func
+         combine(param)
+         combine = "mon4." . func
+         combine(param)
+      end
+   elseif param == nil then
+      if moncount == 1 then
+         mon1.func()
+      elseif moncount == 2 then
+         mon1.func()
+         mon2.func()
+      elseif moncount == 3 then
+         mon1.func()
+         mon2.func()
+         mon3.func()
+      elseif moncount == 4 then
+         mon1.func()
+         mon2.func()
+         mon3.func()
+         mon4.func()
+      end
 end
 
 local button={}
@@ -60,30 +127,30 @@ function delTable(name)
 end
 
 function fill(text, color, bData)
-   mon.setBackgroundColor(color)
+   monitor(setBackgroundColor, color)
    local yspot = math.floor((bData["ymin"] + bData["ymax"]) /2)
    local xspot = math.floor((bData["xmax"] - bData["xmin"] - string.len(text)) /2) +1
    for j = bData["ymin"], bData["ymax"] do
-      mon.setCursorPos(bData["xmin"], j)
+      monitor(setCursorPos, bData["xmin"], j)
       if j == yspot then
          for k = 0, bData["xmax"] - bData["xmin"] - string.len(text) +1 do
             if k == xspot then
-               mon.write(text)
+               monitor(write, text)
             else
-               mon.write(" ")
+               monitor(write, " ")
             end
          end
       else
          for i = bData["xmin"], bData["xmax"] do
-            mon.write(" ")
+            monitor(write, " ")
          end
       end
    end
-   mon.setBackgroundColor(colors.black)
+   monitor(setBackgroundColor, colors.black)
 end
      
 function screen()
-   mon.clear()
+   monitor(clear)
    mon.setCursorPos(1,1)
    local currColor
    for name,data in pairs(button) do
